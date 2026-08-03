@@ -35,8 +35,13 @@ function versionManifestPlugin(): Plugin {
   }
 }
 
+const base = process.env.GITHUB_ACTIONS
+  ? `/${(process.env.GITHUB_REPOSITORY ?? '').split('/')[1]}/`
+  : '/'
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   define: {
     __APP_VERSION__: JSON.stringify(buildVersion),
   },
